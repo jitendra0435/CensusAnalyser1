@@ -6,31 +6,25 @@ import java.util.Iterator;
 import java.util.List;
 
 public class OpenCSVBuilder<E> implements ICSVBuilder {
-    public Iterator<E> getCSVFileIterartor(Reader reader, Class csvClass) throws CSVBuilderException {
-        try {
-            CsvToBeanBuilder<E> csvToBeanBuilder = new CsvToBeanBuilder(reader);
-            csvToBeanBuilder.withType(csvClass);
-            csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
-            CsvToBean<E> csvToBean = csvToBeanBuilder.build();
-            return (Iterator<E>) csvToBean.iterator();
-        } catch (IllegalStateException e) {
-            throw new CSVBuilderException(e.getMessage(),
-                    CSVBuilderException.ExceptionType.UNABLE_TO_PARSE);
-        }
+
+    @Override
+    public Iterator getCSVFileIterartor(Reader reader, Class csvClass) throws CSVBuilderException {
+        return this.getCSVBean(reader,csvClass).iterator();
     }
 
-    public List<E> getCSVFileList(Reader reader, Class csvClass) throws CSVBuilderException {
+    @Override
+    public List getCSVFileList(Reader reader, Class csvClass) throws CSVBuilderException {
+        return this.getCSVBean(reader,csvClass).parse();
+    }
+    private CsvToBean<E> getCSVBean(Reader reader, Class csvClass) throws CSVBuilderException {
         try {
-            CsvToBeanBuilder<E> csvToBeanBuilder = new CsvToBeanBuilder(reader);
+            CsvToBeanBuilder<E> csvToBeanBuilder = new CsvToBeanBuilder<>(reader);
             csvToBeanBuilder.withType(csvClass);
             csvToBeanBuilder.withIgnoreLeadingWhiteSpace(true);
-            CsvToBean<E> csvToBean = csvToBeanBuilder.build();
-            return (List<E>) csvToBean.iterator();
+            return csvToBeanBuilder.build();
         } catch (IllegalStateException e) {
-            throw new CSVBuilderException(e.getMessage(),
-                    CSVBuilderException.ExceptionType.UNABLE_TO_PARSE);
+            throw new CSVBuilderException(e.getMessage(),CensusAnalyserException.ExceptionType.UNABLE_TO_PARSE);
         }
     }
-
 
 }
