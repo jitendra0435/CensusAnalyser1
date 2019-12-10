@@ -64,7 +64,17 @@ public class CensusAnalyserTest {
             CensusAnalyser censusAnalyser=new CensusAnalyser();
             censusAnalyser.loadIndiaStateCodeData(INDIAN_STATE_CSV_PATH_DUMMY);
         } catch (CensusAnalyserException e) {
-            Assert.assertEquals(CensusAnalyserException.ExceptionType.DELIMETER_ERROR,e.type);
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.ERROR_WHILE_LOADING,e.type);
+        }
+    }
+
+    @Test
+    public void givenIndianCencusData_whenContainInCorrectHeader(){
+        try {
+            CensusAnalyser censusAnalyser=new CensusAnalyser();
+            censusAnalyser.loadIndiaStateCodeData(INDIAN_STATE_CSV_PATH_DUMMY);
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.ERROR_WHILE_LOADING,e.type);
         }
     }
 
