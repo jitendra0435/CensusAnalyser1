@@ -42,6 +42,9 @@ public class CensusAnalyser {
         } catch (IOException | CSVBuilderException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
+        } catch (RuntimeException e){
+            throw new CensusAnalyserException(e.getMessage(),
+                    CensusAnalyserException.ExceptionType.DELIMETER_ERROR);
         }
     }
 
@@ -62,13 +65,13 @@ public class CensusAnalyser {
     }
 
     public String getPopulationWiseSortedCensusData() throws CensusAnalyserException {
-        if(censusList==null || censusList.size()==0){
-            throw new CensusAnalyserException("No census data",CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
+        if (censusList == null || censusList.size() == 0) {
+            throw new CensusAnalyserException("No census data", CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
         }
-        Comparator<IndiaCensusDAO>censusComparator=Comparator.comparing(census ->census.population);
+        Comparator<IndiaCensusDAO> censusComparator = Comparator.comparing(census -> census.population);
         this.sortDescending(censusComparator);
-        String sortedStateCensusData=new Gson().toJson(censusList);
-        return  sortedStateCensusData;
+        String sortedStateCensusData = new Gson().toJson(censusList);
+        return sortedStateCensusData;
 
     }
 
