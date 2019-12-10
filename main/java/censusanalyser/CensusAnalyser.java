@@ -44,7 +44,7 @@ public class CensusAnalyser {
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
         } catch (RuntimeException e){
             throw new CensusAnalyserException(e.getMessage(),
-                    CensusAnalyserException.ExceptionType.DELIMETER_ERROR);
+                    CensusAnalyserException.ExceptionType.ERROR_WHILE_LOADING);
         }
     }
 
