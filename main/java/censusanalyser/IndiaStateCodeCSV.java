@@ -2,18 +2,18 @@ package censusanalyser;
 
 import com.opencsv.bean.CsvBindByName;
 
-public class IndiaStateCodeCsv {
+public class IndiaStateCodeCSV {
     @CsvBindByName(column = "State Name", required = true)
     public String stateName;
 
     @CsvBindByName(column = "StateCode", required = true)
-    public int StateCode;
+    public String stateCode;
 
     @Override
     public String toString() {
-        return "IndiaStateCodeCsv{" +
+        return "IndiaStateCodeCSV{" +
                 "stateName='" + stateName + '\'' +
-                ", StateCode=" + StateCode +
+                ", stateCode='" + stateCode + '\'' +
                 '}';
     }
 }
