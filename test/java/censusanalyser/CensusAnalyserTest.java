@@ -58,48 +58,25 @@ public class CensusAnalyserTest {
         }
     }
 
-
+    @Test
+    public void givenIndianStateCodeCSVfile_whenContainInCorrectHeader(){
+        try {
+            CensusAnalyser censusAnalyser=new CensusAnalyser();
+            censusAnalyser.loadIndiaStateCodeData(INDIAN_STATE_CSV_PATH_DUMMY);
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.ERROR_WHILE_LOADING,e.type);
+        }
+    }
+    
     @Test
     public void givenIndianCensusData_WhenSortedOnState_ShouldReturnSortedResult()  {
         try {
             CensusAnalyser censusAnalyser=new CensusAnalyser();
+            censusAnalyser.loadIndiaStateCodeData(INDIAN_STATE_CSV_PATH);
             censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
             String sortedCensusData = censusAnalyser.getStateWiseSortedCensusData();
-            IndiaCensusCSV[] censusCSV=new Gson().fromJson(sortedCensusData,IndiaCensusCSV[].class);
+            IndiaCensusDAO[] censusCSV=new Gson().fromJson(sortedCensusData,IndiaCensusDAO[].class);
             Assert.assertEquals("Andhra Pradesh",censusCSV[0].state);
-        } catch (CensusAnalyserException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Test
-    public void givenIndianCencusData_whenContainInCorrectDelimeter(){
-        try {
-            CensusAnalyser censusAnalyser=new CensusAnalyser();
-            censusAnalyser.loadIndiaStateCodeData(INDIAN_STATE_CSV_PATH_DUMMY);
-        } catch (CensusAnalyserException e) {
-            Assert.assertEquals(CensusAnalyserException.ExceptionType.ERROR_WHILE_LOADING,e.type);
-        }
-    }
-
-    @Test
-    public void givenIndianCencusData_whenContainInCorrectHeader(){
-        try {
-            CensusAnalyser censusAnalyser=new CensusAnalyser();
-            censusAnalyser.loadIndiaStateCodeData(INDIAN_STATE_CSV_PATH_DUMMY);
-        } catch (CensusAnalyserException e) {
-            Assert.assertEquals(CensusAnalyserException.ExceptionType.ERROR_WHILE_LOADING,e.type);
-        }
-    }
-
-    @Test
-    public void givenIndianCencusData_whenSortedOnPopulation_ShouldReturnSortedResult(){
-        try {
-            CensusAnalyser censusAnalyser=new CensusAnalyser();
-            censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
-            String sortedCensusData=censusAnalyser.getPopulationWiseSortedCensusData();
-            IndiaCensusCSV[] censusCSV=new Gson().fromJson(sortedCensusData,IndiaCensusCSV[].class);
-            Assert.assertEquals("Uttar Pradesh",censusCSV[28].state);
         } catch (CensusAnalyserException e) {
             e.printStackTrace();
         }
