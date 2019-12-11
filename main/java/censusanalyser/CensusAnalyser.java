@@ -17,15 +17,17 @@ public class CensusAnalyser {
     List<IndiaCensusDAO> censusList=null;
 
     public CensusAnalyser() {
-        this.censusList = new ArrayList<IndiaCensusDAO>();
+        censusList = new ArrayList<>();
     }
 
     public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
             ICSVBuilder csvBuilder= CSVBuilderFactory.createCSVBuilder();
-            Iterator<IndiaCensusCSV> censusFileIterator= csvBuilder.getCSVFileIterartor(reader, IndiaCensusCSV.class);
-            while(censusFileIterator.hasNext()){
-                this.censusList.add(new IndiaCensusDAO(censusFileIterator.next()));
+            Iterator<IndiaCensusCSV> csvIterator= csvBuilder.getCSVFileIterartor(reader, IndiaCensusCSV.class);
+            Iterable<IndiaCensusCSV> csvIterable= () ->csvIterator;
+            StreamSupport.stream(csvIterable.spliterator(),false);
+            while(csvIterator.hasNext()){
+                censusList.add(new IndiaCensusDAO(csvIterator.next()));
             }
             return censusList.size();
         } catch (IOException | CSVBuilderException e) {
