@@ -18,6 +18,7 @@ public class CensusAnalyser {
         censusStateMap = new HashMap<>();
         this.fieldNameComparatorMap=new HashMap();
         this.fieldNameComparatorMap.put(StateCensusColumnsName.State,Comparator.comparing(census->census.state));
+        this.fieldNameComparatorMap.put(StateCensusColumnsName.Population,Comparator.comparing(census->census.population,Comparator.reverseOrder()));
     }
     public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
         try (Reader reader = Files.newBufferedReader(Paths.get(csvFilePath))) {
