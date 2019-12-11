@@ -110,4 +110,17 @@ public class CensusAnalyserTest {
             e.printStackTrace();
         }
     }
+    @Test
+    public void givenIndianCensusData_WhenSortedOnPopulation_ShouldReturnSortedResult() {
+        try {
+            CensusAnalyser censusAnalyser = new CensusAnalyser();
+            censusAnalyser.loadIndiaCensusData(INDIA_CENSUS_CSV_FILE_PATH);
+            censusAnalyser.loadIndiaStateCodeData(INDIAN_STATE_CSV_PATH);
+            String sortedCensusData = censusAnalyser.genericSort(StateCensusColumnsName.Population);
+            IndiaCensusDAO[] censusCSV = new Gson().fromJson(sortedCensusData, IndiaCensusDAO[].class);
+            Assert.assertEquals("Uttar Pradesh", censusCSV[0].state);
+        } catch (CensusAnalyserException e) {
+            e.printStackTrace();
+        }
+    }
 }
