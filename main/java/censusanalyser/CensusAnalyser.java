@@ -23,18 +23,14 @@ public class CensusAnalyser {
         this.fieldNameComparatorMap.put(StateCensusColumnsName.DensityPerSqKm,Comparator.comparing(census->census.densityPerSqKm,Comparator.reverseOrder()));
         this.fieldNameComparatorMap.put(StateCensusColumnsName.AreaInSqKm,Comparator.comparing(census->census.areaInSqKm,Comparator.reverseOrder()));
     }
-    public int loadIndiaCensusData(String ...csvFilePath) throws CensusAnalyserException {
-            return loader.commonLoader(IndiaCensusCSV.class, censusStateMap,csvFilePath);
-    }
-    public int loadUSCensusData(String... csvFilepath) throws CensusAnalyserException {
-            return loader.commonLoader(USCensusCSV.class,censusStateMap,csvFilepath);
-
+    public int loadCensusData(String countryName,String... csvFilepath) throws CensusAnalyserException {
+            return loader.loadCensusCSV(countryName,censusStateMap,csvFilepath);
     }
     public String genericSort(StateCensusColumnsName columnName) throws CensusAnalyserException {
         if (censusStateMap == null || censusStateMap.size() == 0) {
             throw new CensusAnalyserException("No census data", CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
         }
-            String sortedStateCensusData=null;
+            String sortedStateCensusData;
             List<CensusDAO> censusDAOS = censusStateMap.values().stream().collect(Collectors.toList());
             this.sort(censusDAOS, this.fieldNameComparatorMap.get(columnName));
             sortedStateCensusData = new Gson().toJson(censusDAOS);

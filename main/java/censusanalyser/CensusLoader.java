@@ -59,4 +59,10 @@ public class CensusLoader {
         }
     }
 
+    public int loadCensusCSV(String countryName, Map<String,CensusDAO>cencusCSV,String... csvFilepath) throws CensusAnalyserException {
+            if(countryName.equals("India"))
+                return commonLoader(IndiaCensusCSV.class,cencusCSV,csvFilepath);
+            else
+                return commonLoader(USCensusCSV.class,cencusCSV,csvFilepath);
+    }
 }
