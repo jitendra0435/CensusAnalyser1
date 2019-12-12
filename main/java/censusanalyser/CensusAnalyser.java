@@ -24,8 +24,7 @@ public class CensusAnalyser {
     }
     public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
         try{
-            int censusData=commonLoader(csvFilePath,IndiaCensusCSV.class);
-            return censusData;
+            return commonLoader(csvFilePath,IndiaCensusCSV.class);
         } catch (RuntimeException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.ERROR_WHILE_LOADING);
@@ -33,8 +32,7 @@ public class CensusAnalyser {
     }
     public int loadUSCensusData(String csvFilepath) throws CensusAnalyserException {
         try{
-            int censusDataUS=commonLoader(csvFilepath,USCensusCSV.class);
-            return censusDataUS;
+            return commonLoader(csvFilepath,USCensusCSV.class);
         } catch (RuntimeException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.ERROR_WHILE_LOADING);
