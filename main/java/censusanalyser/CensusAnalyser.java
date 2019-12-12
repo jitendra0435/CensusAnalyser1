@@ -23,36 +23,13 @@ public class CensusAnalyser {
         this.fieldNameComparatorMap.put(StateCensusColumnsName.DensityPerSqKm,Comparator.comparing(census->census.densityPerSqKm,Comparator.reverseOrder()));
         this.fieldNameComparatorMap.put(StateCensusColumnsName.AreaInSqKm,Comparator.comparing(census->census.areaInSqKm,Comparator.reverseOrder()));
     }
-    public int loadIndiaCensusData(String csvFilePath) throws CensusAnalyserException {
-            return loader.commonLoader(csvFilePath,IndiaCensusCSV.class, censusStateMap);
-        }
-    public int loadUSCensusData(String csvFilepath) throws CensusAnalyserException {
-            return loader.commonLoader(csvFilepath,USCensusCSV.class,censusStateMap);
+    public int loadIndiaCensusData(String ...csvFilePath) throws CensusAnalyserException {
+            return loader.commonLoader(IndiaCensusCSV.class, censusStateMap,csvFilePath);
+    }
+    public int loadUSCensusData(String... csvFilepath) throws CensusAnalyserException {
+            return loader.commonLoader(USCensusCSV.class,censusStateMap,csvFilepath);
 
     }
-
-    public int loadIndiaStateCodeData(String IndiaStateCodeCSV) throws CensusAnalyserException {
-        try (Reader reader = Files.newBufferedReader(Paths.get(IndiaStateCodeCSV));) {
-            ICSVBuilder csvBuilder= CSVBuilderFactory.createCSVBuilder();
-            Iterator<IndiaStateCodeCSV> stateCSVIterator = csvBuilder.getCSVFileIterartor(reader, IndiaStateCodeCSV.class);
-            int count=0;
-            while(stateCSVIterator.hasNext()){
-                count++;
-                IndiaStateCodeCSV stateCSV = stateCSVIterator.next();
-                CensusDAO censusDAO=censusStateMap.get(stateCSV.stateName);
-                if(censusDAO==null) continue;
-                censusDAO.stateCode=stateCSV.stateCode;
-            }
-            return count;
-        } catch (IOException | CSVBuilderException e) {
-            throw new CensusAnalyserException(e.getMessage(),
-                    CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
-        } catch (RuntimeException e){
-            throw new CensusAnalyserException(e.getMessage(),
-                    CensusAnalyserException.ExceptionType.ERROR_WHILE_LOADING);
-        }
-    }
-
     public String genericSort(StateCensusColumnsName columnName) throws CensusAnalyserException {
         if (censusStateMap == null || censusStateMap.size() == 0) {
             throw new CensusAnalyserException("No census data", CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
