@@ -1,20 +1,11 @@
 package censusanalyser;
 import com.google.gson.Gson;
-import csvbuilder.CSVBuilderException;
-import csvbuilder.CSVBuilderFactory;
-import csvbuilder.ICSVBuilder;
-import java.io.IOException;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
-public class CensusAnalyser {
+public class CensusAnalyser{
+    public enum Country {INIDIA ,USA};
     Map<String, CensusDAO> censusStateMap=null;
     Map<StateCensusColumnsName,Comparator<CensusDAO>> fieldNameComparatorMap=null;
-    CensusLoader loader=new CensusLoader();
     public CensusAnalyser() {
         censusStateMap = new HashMap<>();
         this.fieldNameComparatorMap=new HashMap();
@@ -23,8 +14,10 @@ public class CensusAnalyser {
         this.fieldNameComparatorMap.put(StateCensusColumnsName.DensityPerSqKm,Comparator.comparing(census->census.densityPerSqKm,Comparator.reverseOrder()));
         this.fieldNameComparatorMap.put(StateCensusColumnsName.AreaInSqKm,Comparator.comparing(census->census.areaInSqKm,Comparator.reverseOrder()));
     }
-    public int loadCensusData(String countryName,String... csvFilepath) throws CensusAnalyserException {
-            return loader.loadCensusCSV(countryName,censusStateMap,csvFilepath);
+    public int loadCensusData(Country country,String... csvFilePath) throws CensusAnalyserException {
+        CensusAdapter censusAdapter =  CensusAdapterFactory.getCensusData(country);
+        censusStateMap = censusAdapter.loadCensusData(country, csvFilePath);
+        return censusStateMap.size();
     }
     public String genericSort(StateCensusColumnsName columnName) throws CensusAnalyserException {
         if (censusStateMap == null || censusStateMap.size() == 0) {
