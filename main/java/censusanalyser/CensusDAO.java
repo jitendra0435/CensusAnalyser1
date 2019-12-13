@@ -19,4 +19,10 @@ public class CensusDAO {
         this.densityPerSqKm = usCensusCSV.populationDensity;
 
     }
+
+    public Object getDTO(CensusAnalyser.Country country) {
+        if (country.equals(CensusAnalyser.Country.INDIA))
+            return new IndiaCensusCSV(state,population,(int)areaInSqKm,(int)densityPerSqKm);
+        return new USCensusCSV(state,population,(int) areaInSqKm,(int) densityPerSqKm);
+    }
 }

@@ -5,8 +5,9 @@ import java.util.Map;
 
 public class USCensusAdapterTest {
     private static final String US_CENSUS_CSV_FILE_PATH = "/home/admin1/Desktop/CensusAnalyser/src/test/resources/USCensusData.csv";
-    private static final String US_CENSUS_CSV_FILE_PATH_DUMMY = "/home/admin1/Desktop/CensusAnalyser/src/test/resources/USCensusDataDummy.csv" +
-            ".csv";
+    private static final String US_CENSUS_CSV_FILE_PATH_DUMMY = "/home/admin1/Desktop/CensusAnalyser/src/test/resources/USCensusDataDummy.csv";
+    private static final String WRONG_CSV_FILE_PATH = "./src/main/resources/IndiaStateCensusData.csv";
+
     @Test
     public void givenUSCensusCSVFile_ReturnsCorrectRecords() {
         try {
@@ -37,5 +38,14 @@ public class USCensusAdapterTest {
             Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM,e.type);
         }
 
+    }
+    @Test
+    public void givenMethodwithWrongFile_ReturnException(){
+        try {
+            USCensusAdapter usCensusAdapter = new USCensusAdapter();
+            usCensusAdapter.loadCensusData(CensusAnalyser.Country.USA,WRONG_CSV_FILE_PATH);
+        } catch (CensusAnalyserException e) {
+            Assert.assertEquals(CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM,e.type);
+        }
     }
 }

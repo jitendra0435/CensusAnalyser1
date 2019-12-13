@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.stream.StreamSupport;
 
-public class IndianCensusAdapter extends CensusAdapter {
+ public class IndianCensusAdapter extends CensusAdapter {
     @Override
     public Map<String, CensusDAO> loadCensusData(CensusAnalyser.Country country, String... csvFilePath) throws CensusAnalyserException {
         Map<String, CensusDAO> censusStateMap = super.loadCensusData(IndiaCensusCSV.class,csvFilePath[0]);
@@ -27,12 +27,12 @@ public class IndianCensusAdapter extends CensusAdapter {
                     .filter(csvState -> this.censusStateMap.get(csvState.stateName) != null)
                     .forEach(csvState -> this.censusStateMap.get(csvState.stateName).stateCode = csvState.stateCode);
             return this.censusStateMap.size();
+        }catch (RuntimeException e) {
+                throw new CensusAnalyserException(e.getMessage(),
+                        CensusAnalyserException.ExceptionType.ERROR_WHILE_LOADING);
         } catch (IOException | CSVBuilderException e) {
             throw new CensusAnalyserException(e.getMessage(),
                     CensusAnalyserException.ExceptionType.CENSUS_FILE_PROBLEM);
-        } catch (RuntimeException e) {
-            throw new CensusAnalyserException(e.getMessage(),
-                    CensusAnalyserException.ExceptionType.ERROR_WHILE_LOADING);
         }
     }
 }
