@@ -5,7 +5,6 @@ import com.opencsv.bean.CsvBindByName;
 public class USCensusCSV {
     public USCensusCSV() {
     }
-
     @CsvBindByName(column = "State",required = true)
     public String state;
 

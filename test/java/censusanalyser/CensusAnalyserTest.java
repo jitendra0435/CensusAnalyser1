@@ -173,7 +173,7 @@ public class CensusAnalyserTest {
     @Test
     public void givenUSCensusData_WhenSortedOnState_ShouldReturnSortedResult() {
         try {
-            CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.INDIA);
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.USA);
             censusAnalyser.loadCensusData(CensusAnalyser.Country.USA,US_CENSUS_CSV_PATH);
             String sortedCensusData = censusAnalyser.genericSort(StateCensusColumnsName.State);
             CensusDAO[] censusCSV = new Gson().fromJson(sortedCensusData, CensusDAO[].class);
@@ -186,7 +186,7 @@ public class CensusAnalyserTest {
     @Test
     public void givenUSCensusData_WhenSortedOnPopulation_ShouldReturnSortedResult() {
         try {
-            CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.INDIA);
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.USA);
             censusAnalyser.loadCensusData(CensusAnalyser.Country.USA,US_CENSUS_CSV_PATH);
             String sortedCensusData = censusAnalyser.genericSort(StateCensusColumnsName.Population);
             CensusDAO[] censusCSV = new Gson().fromJson(sortedCensusData, CensusDAO[].class);
@@ -199,7 +199,7 @@ public class CensusAnalyserTest {
     @Test
     public void givenUSCensusData_WhenSortedOnDensity_ShouldReturnSortedResult() {
         try {
-            CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.INDIA);
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.USA);
             censusAnalyser.loadCensusData(CensusAnalyser.Country.USA,US_CENSUS_CSV_PATH);
             String sortedCensusData = censusAnalyser.genericSort(StateCensusColumnsName.DensityPerSqKm);
             CensusDAO[] censusCSV = new Gson().fromJson(sortedCensusData, CensusDAO[].class);
@@ -212,7 +212,7 @@ public class CensusAnalyserTest {
     @Test
     public void givenUSCensusData_WhenSortedOnAreaInSqKm_ShouldReturnSortedResult() {
         try {
-            CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.INDIA);
+            CensusAnalyser censusAnalyser = new CensusAnalyser(CensusAnalyser.Country.USA);
             censusAnalyser.loadCensusData(CensusAnalyser.Country.USA,US_CENSUS_CSV_PATH);
             String sortedCensusData = censusAnalyser.genericSort(StateCensusColumnsName.AreaInSqKm);
             CensusDAO[] censusCSV = new Gson().fromJson(sortedCensusData, CensusDAO[].class);
