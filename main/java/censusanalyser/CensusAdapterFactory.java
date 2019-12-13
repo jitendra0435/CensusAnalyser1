@@ -2,7 +2,7 @@ package censusanalyser;
 
 public class CensusAdapterFactory {
     public static CensusAdapter getCensusData(CensusAnalyser.Country country) throws CensusAnalyserException {
-        if (country.equals(CensusAnalyser.Country.INIDIA)) {
+        if (country.equals(CensusAnalyser.Country.INDIA)) {
             return  new IndianCensusAdapter();
         } else if (country.equals(CensusAnalyser.Country.USA)) {
             return  new USCensusAdapter();

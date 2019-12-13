@@ -12,7 +12,6 @@ public class CensusDAO {
         this.areaInSqKm = indiaCensusCSV.areaInSqKm;
         this.densityPerSqKm = indiaCensusCSV.densityPerSqKm;
     }
-
     public CensusDAO(USCensusCSV usCensusCSV) {
         this.state = usCensusCSV.state;
         this.population = usCensusCSV.population;

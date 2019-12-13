@@ -2,7 +2,6 @@ package censusanalyser;
 import csvbuilder.CSVBuilderException;
 import csvbuilder.CSVBuilderFactory;
 import csvbuilder.ICSVBuilder;
-
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
@@ -19,7 +18,6 @@ public class IndianCensusAdapter extends CensusAdapter {
         this.loadIndiaStateCodeData(csvFilePath[1]);
         return censusStateMap;
     }
-
     public int loadIndiaStateCodeData(String IndiaStateCodeCSV) throws CensusAnalyserException {
         try (Reader reader = Files.newBufferedReader(Paths.get(IndiaStateCodeCSV));) {
             ICSVBuilder csvBuilder = CSVBuilderFactory.createCSVBuilder();
