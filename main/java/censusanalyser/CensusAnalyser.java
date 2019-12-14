@@ -16,7 +16,7 @@ public class CensusAnalyser{
         this.fieldNameComparatorMap.put(StateCensusColumnsName.DensityPerSqKm,Comparator.comparing(census->census.densityPerSqKm,Comparator.reverseOrder()));
         this.fieldNameComparatorMap.put(StateCensusColumnsName.AreaInSqKm,Comparator.comparing(census->census.areaInSqKm,Comparator.reverseOrder()));
         Comparator<CensusDAO> populationComparator = Comparator.comparing(census -> census.population);
-        Comparator<CensusDAO> densityComparator = Comparator.comparing(census -> census.population);
+        Comparator<CensusDAO> densityComparator = Comparator.comparing(census -> census.densityPerSqKm);
         Comparator<CensusDAO> populusStateWithDensityComparator = populationComparator.thenComparing(densityComparator);
         this.fieldNameComparatorMap.put(StateCensusColumnsName.POPULUSSTATEWITHDENSITY, populusStateWithDensityComparator);
     }
@@ -26,7 +26,7 @@ public class CensusAnalyser{
         censusStateMap = censusAdapter.loadCensusData(country, csvFilePath);
         return censusStateMap;
     }
-    public String genericSort(Map<String, CensusDAO> indianCensusData, StateCensusColumnsName sortByColunnName) throws CensusAnalyserException {
+    public String genericSort(StateCensusColumnsName sortByColunnName) throws CensusAnalyserException {
         if (censusStateMap == null || censusStateMap.size() == 0) {
             throw new CensusAnalyserException("No census data", CensusAnalyserException.ExceptionType.NO_CENSUS_DATA);
         }
