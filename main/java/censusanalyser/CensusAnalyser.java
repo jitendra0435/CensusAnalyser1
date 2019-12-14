@@ -11,14 +11,14 @@ public class CensusAnalyser{
         this.country=country;
         censusStateMap = new HashMap<>();
         this.fieldNameComparatorMap=new HashMap();
-        this.fieldNameComparatorMap.put(StateCensusColumnsName.State,Comparator.comparing(census->census.state));
-        this.fieldNameComparatorMap.put(StateCensusColumnsName.Population,Comparator.comparing(census->census.population,Comparator.reverseOrder()));
-        this.fieldNameComparatorMap.put(StateCensusColumnsName.DensityPerSqKm,Comparator.comparing(census->census.densityPerSqKm,Comparator.reverseOrder()));
-        this.fieldNameComparatorMap.put(StateCensusColumnsName.AreaInSqKm,Comparator.comparing(census->census.areaInSqKm,Comparator.reverseOrder()));
+        this.fieldNameComparatorMap.put(StateCensusColumnsName.STATE,Comparator.comparing(census->census.state));
+        this.fieldNameComparatorMap.put(StateCensusColumnsName.POPULATION,Comparator.comparing(census->census.population,Comparator.reverseOrder()));
+        this.fieldNameComparatorMap.put(StateCensusColumnsName.DENSITY_PER_SQ_KM,Comparator.comparing(census->census.densityPerSqKm,Comparator.reverseOrder()));
+        this.fieldNameComparatorMap.put(StateCensusColumnsName.AREAIN_SQKM,Comparator.comparing(census->census.areaInSqKm,Comparator.reverseOrder()));
         Comparator<CensusDAO> populationComparator = Comparator.comparing(census -> census.population);
         Comparator<CensusDAO> densityComparator = Comparator.comparing(census -> census.densityPerSqKm);
         Comparator<CensusDAO> populusStateWithDensityComparator = populationComparator.thenComparing(densityComparator);
-        this.fieldNameComparatorMap.put(StateCensusColumnsName.POPULUSSTATEWITHDENSITY, populusStateWithDensityComparator);
+        this.fieldNameComparatorMap.put(StateCensusColumnsName.POPULUSSTATEWITH_DENSITY, populusStateWithDensityComparator);
     }
 
     public Map<String, CensusDAO> loadCensusData(Country country, String... csvFilePath) throws CensusAnalyserException {

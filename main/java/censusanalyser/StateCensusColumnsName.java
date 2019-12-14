@@ -1,5 +1,5 @@
 package censusanalyser;
 
 public enum StateCensusColumnsName {
- State,Population,AreaInSqKm,DensityPerSqKm,POPULUSSTATEWITHDENSITY
+ STATE, POPULATION, AREAIN_SQKM, DENSITY_PER_SQ_KM, POPULUSSTATEWITH_DENSITY
 }
